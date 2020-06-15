@@ -26,11 +26,12 @@ cat << EOF
 | grs   => git reset --soft <sha1>                      | reset soft & keep changes in stage                    |
 | greset=> git reset <sha1>                             | reset mixed(default) & keep changes in work area      |
 | grh   => git reset --hard <sha1>                      | reset hard & keep changes in stage                    |
+| grb   => git rebase -i HEAD~<n>                       | rebase (pick,squash)                                  |
 +------------------+--------------------------------------------------------------------------------------------+
 EOF
 }
 
-alias ghelp='_githelp(){git-usage};_githelp'
+alias ghelp='_githelp(){ git-usage; };_githelp'
 alias ga='git add'
 alias grm='git rm --cached'
 alias gc='git commit -m'
@@ -50,3 +51,4 @@ alias gcp='git cherry-pick'
 alias grs='git reset --soft'
 alias grx='git reset'
 alias grh='git reset --hard'
+alias grb='git rebase -i'
