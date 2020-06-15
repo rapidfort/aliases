@@ -54,4 +54,3 @@ alias grx='git reset'
 alias grh='git reset --hard'
 alias grb='git rebase -i'
 alias gurl='git remote -v'
-git@bitbucket.org:rapidfort/system-call-tests.git
