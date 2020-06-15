@@ -27,6 +27,7 @@ cat << EOF
 | greset=> git reset <sha1>                             | reset mixed(default) & keep changes in work area      |
 | grh   => git reset --hard <sha1>                      | reset hard & keep changes in stage                    |
 | grb   => git rebase -i HEAD~<n>                       | rebase (pick,squash)                                  |
+| gurl  => git remote -v                                | git remote url                                 |
 +------------------+--------------------------------------------------------------------------------------------+
 EOF
 }
@@ -52,3 +53,5 @@ alias grs='git reset --soft'
 alias grx='git reset'
 alias grh='git reset --hard'
 alias grb='git rebase -i'
+alias gurl='git remote -v'
+git@bitbucket.org:rapidfort/system-call-tests.git
