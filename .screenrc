@@ -1,0 +1,15 @@
+screen -t git bash
+screen -t code bash
+screen -t build bash
+screen -t test bash
+screen -t scratch1 bash
+screen -t scratch2 bash
+
+defescape ^Oo
+escape ^Oo
+defflow off
+
+hardstatus on
+hardstatus alwayslastline
+hardstatus string "%w"
+
