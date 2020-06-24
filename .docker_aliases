@@ -27,6 +27,7 @@ cat << EOF
 | drcpv => docker run --rm --privileged -v$(pwd):/rf -it image cmd  | docker run privileged mount volume cmd           |
 | dexec => docker exec -it container sh
 | dexecc=> docker exec -it container cmd
+| dclean=> docker system prune                                      | Remove dandling images                           |
 +----------------------------------------------------------------------------------------------------------------------+
 EOF
 }
@@ -61,6 +62,9 @@ alias dlogin='docker login'
 alias dlogout='docker logout'
 alias dl='docker logs '
 alias dlf='dlf(){ docker logs -f $1; }; _dl'
+
+alias dclean='docker system prune -f'
+
 
 alias dm='docker manifest'
 alias dnet='docker network'
