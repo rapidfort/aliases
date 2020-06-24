@@ -25,9 +25,10 @@ cat << EOF
 | drcp  => docker run --rm --privileged -it image cmd               | docker run privileged cmd                        |
 | drpv  => docker run --rm --privileged -v$(pwd):/rf -it image sh   | docker run privileged mount volume shell         |
 | drcpv => docker run --rm --privileged -v$(pwd):/rf -it image cmd  | docker run privileged mount volume cmd           |
-| dexec => docker exec -it container sh
-| dexecc=> docker exec -it container cmd
+| dexec => docker exec -it container sh                             |                                                  |
+| dexecc=> docker exec -it container cmd                            |                                                  |
 | dclean=> docker system prune                                      | Remove dandling images                           |
+| dhist => docker history                                           | Get docker repo history                          |
 +----------------------------------------------------------------------------------------------------------------------+
 EOF
 }
@@ -51,6 +52,7 @@ alias devents='docker events'
 alias dexec='_dexec(){ docker exec -it $1 sh; }; _dexec'
 alias dexecmd='_decmd(){ docker exec -it $1 $2; }; _decmd'
 
+alias dhist='docker history'
 alias dexport='docker export'
 alias di='docker image'
 alias dimport='docker import'
