@@ -8,34 +8,39 @@ cat << EOF
 | dhelp => Usage                                                    |                                                  |
 | da    => docker attach container                                  | Attach to running container                      |
 | db    => docker build tagname                                     | Build docker image in currrent folder            |
+| dbf   => docker build tagname Dockerfile-path                     | Build docker image in currrent folder            |
 | dc    => docker create image                                      | create container                                 |
 | dd    => docker diff                                              | docker diff                                      |
 | di    => docker images                                            | list images                                      |
 | dl    => docker logs                                              | logs                                             |
 | dp    => docker ps                                                | list running container                           |
 | dpa   => docker ps -a                                             | list running or stopped container                |
-| drfa  => docker rm -f $(docker ps -aq)                            | stop all containers                              |
-| dria  => docker rmi -f $(docker images -aq)                       | rm all images                                    |
+| drfa  => docker rm -f \$(docker ps -aq)                           | stop all containers                              |
+| dria  => docker rmi -f \$(docker images -aq)                      | rm all images                                    |
 | dspn  => docker system prune                                      | rm dangling images                               |
 | dr    => docker run --rm -it image sh                             | shell                                            |
 | drc   => docker run --rm -it image cmd                            | run command & exit                               |
-| drv   => docker run --rm -v$(pwd):/rf -it image sh                | mount current folder & run shell                 |
-| drcv  => docker run --rm -v$(pwd):/rf -it image cmd               | mount current folder & run command               |
+| drv   => docker run --rm -v\$(pwd):/rf -it image sh               | mount current folder & run shell                 |
+| drcv  => docker run --rm -v\$(pwd):/rf -it image cmd              | mount current folder & run command               |
 | drp   => docker run --rm --privileged -it image sh                | docker run privileged sh                         |
 | drcp  => docker run --rm --privileged -it image cmd               | docker run privileged cmd                        |
-| drpv  => docker run --rm --privileged -v$(pwd):/rf -it image sh   | docker run privileged mount volume shell         |
-| drcpv => docker run --rm --privileged -v$(pwd):/rf -it image cmd  | docker run privileged mount volume cmd           |
+| drpv  => docker run --rm --privileged -v\$(pwd):/rf -it image sh  | docker run privileged mount volume shell         |
+| drcpv => docker run --rm --privileged -v\$(pwd):/rf -it image cmd | docker run privileged mount volume cmd           |
 | dexec => docker exec -it container sh                             |                                                  |
 | dexecc=> docker exec -it container cmd                            |                                                  |
 | dclean=> docker system prune                                      | Remove dandling images                           |
 | dhist => docker history                                           | Get docker repo history                          |
+| dins  => docker inspect                                           | docker inspect                                   |
+| dfs   => get docker image filesystem                              | docker inspect                                   |
 +----------------------------------------------------------------------------------------------------------------------+
 EOF
 }
 
+alias dtar='_dtar() { cid=$(docker create "${1}"); docker export -o "${1}.tar" "${cid}"; docker rm "$cid"; mkdir "${1}"; tar xvf "${1}.tar" -C "${1}";};_dtar'
 alias dhelp='_dhelp(){ docker-usage; };_dhelp'
 alias da='docker attach'
 alias db='_db(){ docker build -t $1 .; };_db'
+alias dbf='_dbf(){ docker build -t "${1}" -f "${2}" .; };_dbf'
 alias dr='_dr(){ docker run --rm -it $1 sh; };_dr'
 alias drc='_drc(){ docker run --rm -it $1 $2; };_drc'
 alias drv='_drpv(){ docker run --rm -v $(pwd):/rf -it $1 sh; };_drpv'
@@ -52,9 +57,11 @@ alias devents='docker events'
 alias dexec='_dexec(){ docker exec -it $1 sh; }; _dexec'
 alias dexecmd='_decmd(){ docker exec -it $1 $2; }; _decmd'
 
-alias dhist='docker history'
+alias dhist='docker history --no-trunc'
+alias dins='docker inspect'
+
 alias dexport='docker export'
-alias di='docker image'
+alias di='docker images'
 alias dimport='docker import'
 alias dinfo='docker info'
 alias dinspect='docker inspect'
@@ -81,7 +88,6 @@ alias drename='docker rename'
 alias d='docker restart'
 alias drm='docker rm'
 alias drmi='docker rmi'
-alias dr='docker run'
 alias drsh='_drsh(){ docker run --rm -it $1 sh; }; _drsh'
 alias drcmd='_drcmd(){ docker run --rm -it $1 $2; }; _drcmd'
 alias drshentry='_drshentry(){ docker run --rm -it --entrypoint=$2 $1 bash; }; _drshentry'
@@ -105,3 +111,10 @@ alias dversion='docker version'
 alias dvolume='docker volume'
 alias dwait='docker wait'
 
+alias rfshd='_rfsh(){
+    docker run --rm -e RF_API_SERVER=http://$(curl ipinfo.io/ip):8080 \
+    --cap-add=NET_ADMIN -v$(pwd):/rf -it $1:latest-rfstub /.rapidfort_RtmF/sh ; }; _rfsh'
+
+alias rfsh='_rfsh(){
+    docker run --rm \
+    --cap-add=NET_ADMIN -v$(pwd):/rf -it $1:latest-rfstub /.rapidfort_RtmF/sh ; }; _rfsh'
