@@ -1,0 +1,49 @@
+alias vim_indent="_vmi(){git clone https://github.com/Yggdroot/indentLine.git ~/.vim/pack/vendor/start/indentLine
+vim -u NONE -c 'helptags  ~/.vim/pack/vendor/start/indentLine/doc' -c 'q'; }; _vmi"
+
+alias aws_user='aws sts get-caller-identity'
+
+alias dchrome="(){ open /Applications/Google\ Chrome.app --args --user-data-dir="/var/tmp/Chrome dev session" --disable-web-security}
+
+alias flatj='_schema() { jq '\'' paths(scalars) | map(tostring) | join(".")'\'' $1; }; _schema'
+alias flatjv='_schema1()
+    { jq -r '\'' paths(scalars) as $p | [ ( [ $p[] | tostring ] | join(".") ), ( getpath($p) | tojson )] | join(" = ") '\'' $1; }; _schema1'
+
+#docker aliases
+alias rfsh='_rfsh(){ docker run --rm --cap-add=NET_ADMIN -it $1 sh;}; _rfsh'
+alias rfcmd='_rfcmd(){ docker run --rm --cap-add=NET_ADMIN -it $@; } ; _rfcmd'
+alias drsh='_drsh(){ docker run -it $1 bash; }; _drsh'
+alias ls='ls -G'
+alias myip='curl ipinfo.io/ip'
+alias md='mdfind -onlyin .'
+alias grep='grep -i'
+
+alias curlpost="_curlpost(){ curl -X POST -H 'Content-Type: application/json'  $2; }; _curlpost"
+
+
+
+alias getdocker="_getdocker(){ curl -fsSL https://get.docker.com | sudo sh -; };_getdocker"
+alias copyKey="cat ~/.ssh/id_rsa.pub |pbcopy"
+alias generate_certs="_generate_certs() { HOST=$1;openssl req -new -newkey rsa:2048 -nodes -out $HOST.csr -keyout $HOST.key -subj "/C=US/ST=US/L=SANTA CLARA/O=RAPID FORT, INC./OU=IT/CN=$HOST";};_generate_certs"
+alias check_certs=" openssl x509 -in $1 -text -noout"
+alias tcpdump_http='tcpdump -s0 -i any -vvv -w dump.pcap tcp port 80'
+alias kubuntu="kubectl run --generator=run-pod/v1 ubuntu --rm -i --tty --image ubuntu -- bash"
+alias knetshoot="kubectl run --generator=run-pod/v1 netshoot --rm -i --tty --image nicolaka/netshoot -- bash"
+alias kredis="kubectl run --generator=run-pod/v1 redis --rm -i --tty --image redis -- bash"
+alias kmysql="kubectl run --generator=run-pod/v1 mysql --rm -i --tty --image mysql -- bash"
+alias kcontext='kubectl config get-contexts'
+alias kscontext='kubectl config use-context'
+
+alias k8sh="_k8sh()
+{
+    namespace='default'
+    objname=$1
+    if [ ! -z $2 ]; then
+        namespace=$1
+        objname=$2
+    fi
+    kubectl -n $namespace exec -it  $objname -- bash
+    if [ $? != 0 ]; then
+        kubectl -n $namespace exec -it  $objname -- sh
+    fi
+};_k8sh"

@@ -1,9 +1,5 @@
 [ -z "$PS1" ] && return
 
-if [ -f /etc/bashrc ]; then
-      . /etc/bashrc
-fi
-
 if [ -f .docker_aliases ]; then
       . .docker_aliases
 fi
@@ -14,6 +10,14 @@ fi
 
 if [ -f .kubectl_aliases ]; then
       . .kubectl_aliases
+fi
+
+if [ -f .my_aliases ]; then
+      . .my_aliases
+fi
+
+if [ -f .secret_aliases ]; then
+      . .secret_aliases
 fi
 
 alias debug="set -o nounset; set -o xtrace"
@@ -71,7 +75,7 @@ ALERT=${BWhite}${On_Red} # Bold White on red background
 
 function _exit()              # Function to run upon exit of shell.
 {
-    echo -e "${BRed}Hasta la vista, baby${NC}"
+    echo -e "${BRed}Bye${NC}"
 }
 trap _exit EXIT
 
