@@ -3,7 +3,7 @@ vim -u NONE -c 'helptags  ~/.vim/pack/vendor/start/indentLine/doc' -c 'q'; }; _v
 
 alias aws_user='aws sts get-caller-identity'
 
-alias dchrome="(){ open /Applications/Google\ Chrome.app --args --user-data-dir="/var/tmp/Chrome dev session" --disable-web-security}
+alias dchrome='_dchrome(){ open /Applications/Google\ Chrome.app --args --user-data-dir="/var/tmp/Chrome dev session" --disable-web-security; }; _dchrome'
 
 alias flatj='_schema() { jq '\'' paths(scalars) | map(tostring) | join(".")'\'' $1; }; _schema'
 alias flatjv='_schema1()
@@ -19,12 +19,9 @@ alias md='mdfind -onlyin .'
 alias grep='grep -i'
 
 alias curlpost="_curlpost(){ curl -X POST -H 'Content-Type: application/json'  $2; }; _curlpost"
-
-
-
 alias getdocker="_getdocker(){ curl -fsSL https://get.docker.com | sudo sh -; };_getdocker"
 alias copyKey="cat ~/.ssh/id_rsa.pub |pbcopy"
-alias generate_certs="_generate_certs() { HOST=$1;openssl req -new -newkey rsa:2048 -nodes -out $HOST.csr -keyout $HOST.key -subj "/C=US/ST=US/L=SANTA CLARA/O=RAPID FORT, INC./OU=IT/CN=$HOST";};_generate_certs"
+alias generate_certs='_generate_certs() { HOST=$1;openssl req -new -newkey rsa:2048 -nodes -out $HOST.csr -keyout $HOST.key -subj "/C=US/ST=US/L=SANTA CLARA/O=RAPID FORT, INC./OU=IT/CN=$HOST";};_generate_certs'
 alias check_certs=" openssl x509 -in $1 -text -noout"
 alias tcpdump_http='tcpdump -s0 -i any -vvv -w dump.pcap tcp port 80'
 alias kubuntu="kubectl run --generator=run-pod/v1 ubuntu --rm -i --tty --image ubuntu -- bash"
