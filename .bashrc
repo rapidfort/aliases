@@ -684,7 +684,6 @@ _make()
 complete -F _make -X '+($*|*.[cho])' make gmake pmake
 
 
-PS1="\[\033[01;32m\]\u@\h \w\[\033[34m\]\$(parse_git_branch)\[\033[00m\] $ "
 
 
 _killall()
