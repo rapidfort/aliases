@@ -135,10 +135,15 @@ function job_color()
 
 # Now we construct the prompt.
 PROMPT_COMMAND="history -a"
+
 parse_git_branch() {
   git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
-PS1="\[\033[01;32m\]\${project} \w\[\033[34m\]\$(parse_git_branch)\[\033[00m\] $ "
+
+export MY_EXTERNAL_IP=$(curl -s ipinfo.io/ip)
+
+PS1="\[\033[01;32m\]\u@\${MY_EXTERNAL_IP}:\w\[\033[34m\]\$(parse_git_branch)\[\033[00m\] $ "
+
 
 export TIMEFORMAT=$'\nreal %3R\tuser %3U\tsys %3S\tpcpu %P\n'
 export HISTIGNORE="&:bg:fg:ll:h"
