@@ -14,12 +14,12 @@ cat << EOF
 | gl    => git log                                      | git logs                                              |
 | grl   => git reflog                                   | git reference log                                     |
 | gg    => git log --all --decorate --oneline --graph   | git logs                                              |
-| gls   => git log --stat                               | git logs with files listing                           |
+| ggl   => git log --pretty=format:"[%h] %ae, %ar: %s"  | git logs with files listing                           |
 | gb    => git branch                                   | get current branch                                    |
 | gb    => git branch <branch>                          | create branch                                         |
 | gbc   => git checkout -b <branch>                     | create & checkout branch                              |
 | gbm   => git branch --merged                          |                                                       |
-| gbd   => git diff <branch>..<branch>                  | diff branches                                         |
+| gd    => git diff <branch>..<branch>                  | diff branches                                         |
 | gco   => git checkout <file>                          | revert local changes for file                         |
 | gco   => git checkout branch                          | checkout branch                                       |
 | gcp   => git cherry-pick <sha1>                       | cherry-pick from certain sha1                         |
@@ -43,11 +43,11 @@ alias gs='git status'
 alias gl='git log'
 alias grl='git reflog'
 alias gg='git log --all --decorate --oneline --graph'
-alias gls='git log --stat'
+alias ggl='git log --pretty=format:"[%h] %ae, %ar: %s" --stat'
 alias gb='git branch'
 alias gbc='git checkout -b'
 alias gbm='git branch --merged'
-alias gbd='_gbd(){git diff $1..$2};_gbd'
+alias gd='git diff'
 alias gco='git checkout'
 alias gcp='git cherry-pick'
 alias grs='git reset --soft'

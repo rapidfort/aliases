@@ -144,6 +144,10 @@ export MY_EXTERNAL_IP=$(curl -s ipinfo.io/ip)
 
 PS1="\[\033[01;32m\]\u@\${MY_EXTERNAL_IP}:\w\[\033[34m\]\$(parse_git_branch)\[\033[00m\] $ "
 
+git config --global diff.tool vimdiff
+git config --global merge.tool vimdiff
+git config --global difftool.prompt false
+
 
 export TIMEFORMAT=$'\nreal %3R\tuser %3U\tsys %3S\tpcpu %P\n'
 export HISTIGNORE="&:bg:fg:ll:h"
@@ -173,7 +177,7 @@ alias df='df -kTh'
 # The 'ls' family (this assumes you use a recent GNU ls).
 #-------------------------------------------------------------
 # Add colors for filetype and  human-readable sizes by default on 'ls':
-alias ls='ls -h --color'
+alias ls='ls -h --color=auto'
 alias lx='ls -lXB'         #  Sort by extension.
 alias lk='ls -lSr'         #  Sort by size, biggest last.
 alias lt='ls -ltr'         #  Sort by date, most recent last.
