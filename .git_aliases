@@ -8,6 +8,7 @@ cat << EOF
 | ga    => git add <file>                               | Stage file                                            |
 | grm   => git rm --cached <file>                       | Unstage file                                          |
 | gc    => git commit -m <msg> <file>                   | Commit file                                           |
+| gp    => git push                                     | remote push                                           |
 | gac   => git commit -a -m <msg> <file>                | Stage & C                                             |
 | gcm   => git commit --amend -m <msg>                  | change last commit message                            |
 | gs    => git status                                   | Status                                                |
@@ -37,6 +38,7 @@ alias ghelp='_githelp(){ git-usage; };_githelp'
 alias ga='git add'
 alias grm='git rm --cached'
 alias gc='git commit -m'
+alias gp='git push'
 alias gac='git commit -a -m'
 alias gcm='git commit --amend -m'
 alias gs='git status'
