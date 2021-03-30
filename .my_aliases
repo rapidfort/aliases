@@ -1,5 +1,6 @@
-alias vim_indent="_vmi(){git clone https://github.com/Yggdroot/indentLine.git ~/.vim/pack/vendor/start/indentLine
-vim -u NONE -c 'helptags  ~/.vim/pack/vendor/start/indentLine/doc' -c 'q'; }; _vmi"
+alias vim_indent='_vmi(){
+    git clone https://github.com/Yggdroot/indentLine.git ~/.vim/pack/vendor/start/indentLine
+    vim -u NONE -c "helptags  ~/.vim/pack/vendor/start/indentLine/doc" -c "q"; }; _vmi'
 
 alias aws_user='aws sts get-caller-identity'
 
@@ -44,3 +45,38 @@ alias k8sh="_k8sh()
         kubectl -n $namespace exec -it  $objname -- sh
     fi
 };_k8sh"
+
+setup_stage() {
+    pushd ~/.rapidfort
+        rm credentials
+        ln -s credentials.staging credentials
+    popd
+    export AUTH_SERVER_BASE_URL="https://auth.rapidfort.io"
+    export API_ROOT_URL="https://api.rapidfort.io"
+    export RF_API_SERVER="https://api.rapidfort.io"
+    kubectl config use-context eks_rf-engr-staging
+}
+
+setup_prod() {
+    pushd ~/.rapidfort
+        rm credentials
+        ln -s credentials.prod credentials
+    popd
+    export AUTH_SERVER_BASE_URL="https://auth.rapidfort.com"
+    export API_ROOT_URL="https://api.rapidfort.com"
+    export RF_API_SERVER="https://api.rapidfort.com"
+    kubectl config use-context eks_rapidfort-saas-production
+}
+
+setup_dev() {
+    pushd ~/.rapidfort
+        rm credentials
+        ln -s credentials.dev credentials
+    popd
+
+    export AUTH_SERVER_BASE_URL="https://auth-dev.rapidfort.io"
+    export API_ROOT_URL="https://api-dev.rapidfort.io"
+    export RF_API_SERVER="https://api-dev.rapidfort.io"
+    kubectl config use-context eks_rf-dev-k8-development
+}
+
