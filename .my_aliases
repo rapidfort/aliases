@@ -32,19 +32,19 @@ alias kmysql="kubectl run --generator=run-pod/v1 mysql --rm -i --tty --image mys
 alias kcontext='kubectl config get-contexts'
 alias kscontext='kubectl config use-context'
 
-alias k8sh="_k8sh()
+alias k8sh='_k8sh()
 {
-    namespace='default'
+    namespace=default
     objname=$1
     if [ ! -z $2 ]; then
         namespace=$1
         objname=$2
     fi
-    kubectl -n $namespace exec -it  $objname -- bash
+    echo kubectl -n $namespace exec -it  $objname -- bash
     if [ $? != 0 ]; then
-        kubectl -n $namespace exec -it  $objname -- sh
+        echo kubectl -n $namespace exec -it  $objname -- sh
     fi
-};_k8sh"
+};_k8sh'
 
 setup_stage() {
     pushd ~/.rapidfort
@@ -80,3 +80,7 @@ setup_dev() {
     kubectl config use-context eks_rf-dev-k8-development
 }
 
+
+alias tunnel='_t(){
+    sudo ssh -i ~/.ssh/id_rsa -nNT -L 80:localhost:80 -L 8080:localhost:8080 root@$1
+}; _t'
