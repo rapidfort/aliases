@@ -1,8 +1,8 @@
 #!/bin/bash -ex
-for f in .bashrc .docker_aliases .gdbinit .git_aliases .my_aliases .pylintrc .screenrc .vimrc 
+for f in .bashrc .docker_aliases .gdbinit .git_aliases .my_aliases .pylintrc .screenrc .vimrc
 do
     cp -f $f ~
-done        
+done
 
 docker_setup() {
     curl -fsSL https://get.docker.com -o get-docker.sh
@@ -12,4 +12,4 @@ docker_setup() {
 }
 
 
-docker_setup
+#docker_setup
