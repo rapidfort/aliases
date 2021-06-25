@@ -11,8 +11,8 @@ alias flatjv='_schema1()
     { jq -r '\'' paths(scalars) as $p | [ ( [ $p[] | tostring ] | join(".") ), ( getpath($p) | tojson )] | join(" = ") '\'' $1; }; _schema1'
 
 #docker aliases
-alias rfsh='_rfsh(){ docker run --rm --cap-add=NET_ADMIN -it $1 sh;}; _rfsh'
-alias rfcmd='_rfcmd(){ docker run --rm --cap-add=NET_ADMIN -it $@; } ; _rfcmd'
+alias rfsh='_rfsh(){ docker run --rm --cap-add=NET_ADMIN --cap-add=SYS_PTRACE -it $1 sh;}; _rfsh'
+alias rfcmd='_rfcmd(){ docker run --rm --cap-add=NET_ADMIN --cap-add=SYS_PTRACE -it $@; } ; _rfcmd'
 alias drsh='_drsh(){ docker run -it $1 bash; }; _drsh'
 alias ls='ls -G'
 alias myip='curl ipinfo.io/ip'
@@ -40,9 +40,9 @@ alias k8sh='_k8sh()
         namespace=$1
         objname=$2
     fi
-    echo kubectl -n $namespace exec -it  $objname -- bash
+    kubectl -n $namespace exec -it  $objname -- bash
     if [ $? != 0 ]; then
-        echo kubectl -n $namespace exec -it  $objname -- sh
+        kubectl -n $namespace exec -it  $objname -- sh
     fi
 };_k8sh'
 
@@ -51,9 +51,7 @@ setup_stage() {
         rm credentials
         ln -s credentials.staging credentials
     popd
-    export AUTH_SERVER_BASE_URL="https://auth.rapidfort.io"
     export API_ROOT_URL="https://api.rapidfort.io"
-    export RF_API_SERVER="https://api.rapidfort.io"
     kubectl config use-context eks_rf-engr-staging
 }
 
@@ -62,9 +60,7 @@ setup_prod() {
         rm credentials
         ln -s credentials.prod credentials
     popd
-    export AUTH_SERVER_BASE_URL="https://auth.rapidfort.com"
     export API_ROOT_URL="https://api.rapidfort.com"
-    export RF_API_SERVER="https://api.rapidfort.com"
     kubectl config use-context eks_rapidfort-saas-production
 }
 
@@ -74,12 +70,9 @@ setup_dev() {
         ln -s credentials.dev credentials
     popd
 
-    export AUTH_SERVER_BASE_URL="https://auth-dev.rapidfort.io"
     export API_ROOT_URL="https://api-dev.rapidfort.io"
-    export RF_API_SERVER="https://api-dev.rapidfort.io"
     kubectl config use-context eks_rf-dev-k8-development
 }
-
 
 alias tunnel='_t(){
     sudo ssh -i ~/.ssh/id_rsa -nNT -L 80:localhost:80 -L 8080:localhost:8080 root@$1
