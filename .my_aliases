@@ -32,6 +32,8 @@ alias kmysql="kubectl run --generator=run-pod/v1 mysql --rm -i --tty --image mys
 alias kcontext='kubectl config get-contexts'
 alias kscontext='kubectl config use-context'
 
+alias demo='ssh ubuntu@demo.rapidfort.com'
+
 alias k8sh='_k8sh()
 {
     namespace=default
@@ -75,5 +77,5 @@ setup_dev() {
 }
 
 alias tunnel='_t(){
-    sudo ssh -i ~/.ssh/id_rsa -nNT -L 80:localhost:80 -L 8080:localhost:8080 root@$1
+    sudo ssh -i ~/.ssh/id_rsa -nNT -L 80:localhost:80 -L 8080:localhost:8080 -L 3306:localhost:3306 root@$1
 }; _t'

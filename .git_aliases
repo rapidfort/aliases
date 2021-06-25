@@ -34,6 +34,7 @@ cat << EOF
 EOF
 }
 
+alias gsearch='_gsss(){ git grep $1 $(git rev-list --all); }; _gsss'
 alias ghelp='_githelp(){ git-usage; };_githelp'
 alias ga='git add'
 alias grm='git rm --cached'
