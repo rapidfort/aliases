@@ -1,23 +1,23 @@
 [ -z "$PS1" ] && return
 
-if [ -f .docker_aliases ]; then
-      . .docker_aliases
+if [ -f ~/.docker_aliases ]; then
+      . ~/.docker_aliases
 fi
 
-if [ -f .git_aliases ]; then
-      . .git_aliases
+if [ -f ~/.git_aliases ]; then
+      . ~/.git_aliases
 fi
 
-if [ -f .kubectl_aliases ]; then
-      . .kubectl_aliases
+if [ -f ~/.kubectl_aliases ]; then
+      . ~/.kubectl_aliases
 fi
 
-if [ -f .my_aliases ]; then
-      . .my_aliases
+if [ -f ~/.my_aliases ]; then
+      . ~/.my_aliases
 fi
 
-if [ -f .secret_aliases ]; then
-      . .secret_aliases
+if [ -f ~/.secret_aliases ]; then
+      . ~/.secret_aliases
 fi
 
 alias debug="set -o nounset; set -o xtrace"
