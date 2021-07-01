@@ -34,6 +34,8 @@ alias kscontext='kubectl config use-context'
 
 alias demo='ssh ubuntu@demo.rapidfort.com'
 
+alias git_default_branch='git config --global init.defaultBranch '
+
 alias k8sh='_k8sh()
 {
     namespace=default
