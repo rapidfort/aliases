@@ -81,3 +81,8 @@ setup_dev() {
 alias tunnel='_t(){
     sudo ssh -i ~/.ssh/id_rsa -nNT -L 80:localhost:80 -L 8080:localhost:8080 -L 3306:localhost:3306 root@$1
 }; _t'
+
+alias ecr_login='_el(){ aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 274057717848.dkr.ecr.us-east-1.amazonaws.com; }; _el'
+
+
+
