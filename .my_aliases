@@ -84,5 +84,9 @@ alias tunnel='_t(){
 
 alias ecr_login='_el(){ aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 274057717848.dkr.ecr.us-east-1.amazonaws.com; }; _el'
 
-
+# go specific
+alias go_setup='_gss(){ \
+    mkdir -p $HOME/go/{src,bin,pkg,src/github.com};\
+    export GOPATH="$HOME/go";\
+};_gss' 
 
