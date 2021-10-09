@@ -78,6 +78,18 @@ setup_dev() {
     kubectl config use-context eks_rf-dev-k8-development
 }
 
+alias wurl='_wurl(){curl -k  -i -N -H "Connection: Upgrade" -H "Upgrade: websocket" https://$1/rfpubsub;}; _wurl'
+
+alias ssr='_sh(){ ssh root@$1; }; _sh'
+alias ssu='_sh(){ ssh ubuntu@$1; }; _sh'
+
+
 alias tunnel='_t(){
     sudo ssh -i ~/.ssh/id_rsa -nNT -L 80:localhost:80 -L 8080:localhost:8080 -L 3306:localhost:3306 root@$1
 }; _t'
+
+alias vms='_vms(){
+    aws ec2 describe-instances  \
+    --query "Reservations[*].Instances[*].{PublicIP:PublicIpAddress,PrivateIP:PrivateIpAddress,Name:Tags[?Key=='"'"'Name'"'"']|[0].Value,Status:State.Name,Type:InstanceType}" \
+    --output table;\
+}; _vms'
