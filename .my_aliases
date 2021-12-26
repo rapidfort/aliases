@@ -55,7 +55,6 @@ setup_stage() {
         rm credentials
         ln -s credentials.staging credentials
     popd
-    export API_ROOT_URL="https://api.rapidfort.io"
     kubectl config use-context eks_rf-engr-staging
 }
 
@@ -64,7 +63,6 @@ setup_prod() {
         rm credentials
         ln -s credentials.prod credentials
     popd
-    export API_ROOT_URL="https://api.rapidfort.com"
     kubectl config use-context eks_rapidfort-saas-production
 }
 
@@ -74,7 +72,6 @@ setup_dev() {
         ln -s credentials.dev credentials
     popd
 
-    export API_ROOT_URL="https://api-dev.rapidfort.io"
     kubectl config use-context eks_rf-dev-k8-development
 }
 
@@ -83,18 +80,17 @@ alias wurl='_wurl(){curl -k  -i -N -H "Connection: Upgrade" -H "Upgrade: websock
 alias ssr='_sh(){ ssh root@$1; }; _sh'
 alias ssu='_sh(){ ssh ubuntu@$1; }; _sh'
 
-
 alias tunnel='_t(){
     sudo ssh -i ~/.ssh/id_rsa -nNT -L 80:localhost:80 -L 8080:localhost:8080 -L 3306:localhost:3306 root@$1
 }; _t'
 
 alias vms='_vms(){
-    aws ec2 describe-instances  \
+    aws ec2 describe-instances --profile ${1:-com}  \
     --query "Reservations[*].Instances[*].{PublicIP:PublicIpAddress,PrivateIP:PrivateIpAddress,Name:Tags[?Key=='"'"'Name'"'"']|[0].Value,Status:State.Name,Type:InstanceType}" \
     --output table;\
 }; _vms'
 
-alias ecr_login='_el(){ aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 274057717848.dkr.ecr.us-east-1.amazonaws.com; }; _el'
+alias ecr_login='_el(){ export ECR_REGISTRY=274057717848.dkr.ecr.us-east-1.amazonaws.com; aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin $ECR_REGISTRY; }; _el'
 
 # go specific
 alias go_setup='_gss(){ \

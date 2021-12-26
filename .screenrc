@@ -1,15 +1,28 @@
-screen -t git bash
-screen -t code bash
-screen -t build bash
-screen -t test bash
-screen -t scratch1 bash
-screen -t scratch2 bash
+screen -t iso-master $SHELL -c "cd ~/rapidfort/iso-master && exec $SHELL"
+screen -t backend $SHELL -c "cd ~/rapidfort/iso-master && exec $SHELL"
+screen -t file_access $SHELL -c "cd ~/rapidfort/iso-master && exec $SHELL"
+screen -t package-anlyzer $SHELL -c "cd ~/rapidfort/iso-master && exec $SHELL"
+screen -t functional-tests $SHELL -c "cd ~/rapidfort/functional-tests && exec $SHELL"
+screen -t rfapi $SHELL -c "cd ~/rapidfort/rfapi && exec $SHELL"
+screen -t frontrow $SHELL -c "cd ~/rapidfort/frontrow && exec $SHELL"
+screen -t cli $SHELL -c "cd ~/rapidfort/rapidfort && exec $SHELL"
+screen -t s1 $SHELL -c "cd ~/rapidfort && exec $SHELL"
+screen -t s2 $SHELL -c "cd ~/rapidfort && exec $SHELL"
 
 defescape ^Oo
 escape ^Oo
 defflow off
 
+bindkey "^[OP" screen                   # F1: create a new window
+bindkey "^[OQ" title                    # F2: change title of selected window
+bindkey "^[OR" eval 'prev' 'fit'        # F3: previous window from current window
+bindkey "^[OS" eval 'next' 'fit'        # F4: next window from current window
+bindkey "^[[15;2~" focus up             # SHIFT-F5: split window horizontally & focus
+bindkey "^[[15;5~" only                 # CTRL-F5: remove selected split
+bindkey "^[[15~" eval 'split' 'focus down' 'next' 'focus up' 'screen' # F5: split window horizontally & focus
+bindkey "^[[17~" select                 # F6: prompt for window selection
+bindkey "^[[18~" copy                   # F7: scrollmode
+
 hardstatus on
 hardstatus alwayslastline
 hardstatus string "%w"
-
