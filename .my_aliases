@@ -83,6 +83,7 @@ alias wurl='_wurl(){curl -k  -i -N -H "Connection: Upgrade" -H "Upgrade: websock
 alias ssr='_sh(){ ssh root@$1; }; _sh'
 alias ssu='_sh(){ ssh ubuntu@$1; }; _sh'
 
+alias health_check='hs() { docker inspect --format "{{json .State.Health }}" $1; } ; hs'
 
 alias tunnel='_t(){
     sudo ssh -i ~/.ssh/id_rsa -nNT -L 80:localhost:80 -L 8080:localhost:8080 -L 3306:localhost:3306 root@$1
