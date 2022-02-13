@@ -136,13 +136,18 @@ function job_color()
 # Now we construct the prompt.
 PROMPT_COMMAND="history -a"
 
+sh /usr/share/bash-completion/bash_completion
+GIT_PS1_SHOWDIRTYSTATE=true
+GIT_PS1_SHOWUNTRACKEDFILES=true
+export PS1='\u@\h \w$(__git_ps1) \#'
+
 parse_git_branch() {
   git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
 
 export MY_EXTERNAL_IP=$(curl -s ipinfo.io/ip)
 
-PS1="\[\033[01;32m\]\u@\${MY_EXTERNAL_IP}:\w\[\033[34m\]\$(parse_git_branch)\[\033[00m\] $ "
+PS1="\[\033[01;32m\]\u@\${MY_EXTERNAL_IP}:\w\[\033[34m\]\$(__git_ps1)\[\033[00m\] # "
 
 git config --global diff.tool vimdiff
 git config --global merge.tool vimdiff
