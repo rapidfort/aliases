@@ -136,7 +136,7 @@ function job_color()
 # Now we construct the prompt.
 PROMPT_COMMAND="history -a"
 
-sh /usr/share/bash-completion/bash_completion
+bash /usr/share/bash-completion/bash_completion
 GIT_PS1_SHOWDIRTYSTATE=true
 GIT_PS1_SHOWUNTRACKEDFILES=true
 export PS1='\u@\h \w$(__git_ps1) \#'

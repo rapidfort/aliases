@@ -1,5 +1,5 @@
 #!/bin/bash -ex
-for f in .bashrc .docker_aliases .gdbinit .git_aliases .my_aliases .pylintrc .screenrc .vimrc
+for f in .bashrc .docker_aliases .gdbinit .git_aliases .my_aliases .pylintrc .screenrc .vimrc .kubectl_aliases
 do
     cp -f $f ~
 done
