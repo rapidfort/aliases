@@ -153,7 +153,6 @@ git config --global diff.tool vimdiff
 git config --global merge.tool vimdiff
 git config --global difftool.prompt false
 
-
 export TIMEFORMAT=$'\nreal %3R\tuser %3U\tsys %3S\tpcpu %P\n'
 export HISTIGNORE="&:bg:fg:ll:h"
 export HISTTIMEFORMAT="$(echo -e ${BCyan})[%d/%m %H:%M:%S]$(echo -e ${NC}) "
